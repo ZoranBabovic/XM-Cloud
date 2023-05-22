@@ -1,0 +1,7 @@
+{
+    "server": "https://xmc-perficient-introduction-158.sitecorecloud.io",
+    "user": { 
+        "login": "martin.miles@perficient.com", 
+        "password": "REPLACE_WITH_THE_PASSWORD" 
+    }
+}

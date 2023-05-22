@@ -1,0 +1,1 @@
+dotnet sitecore cloud deployment create --environment-id 54TqsuxtRFia7wWYQzQKjc --working-dir . --upload
