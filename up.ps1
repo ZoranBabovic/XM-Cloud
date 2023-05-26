@@ -1,3 +1,10 @@
+[CmdletBinding(DefaultParameterSetName = "no-arguments")]
+Param (
+    # allow execution without sitecore re-index
+    [switch]
+    $rebuild = $false
+)
+
 $ErrorActionPreference = "Stop";
 
 $envContent = Get-Content .env -Encoding UTF8
@@ -99,9 +106,6 @@ if ($LASTEXITCODE -ne 0) {
     Write-Error "Populating Solr managed schema failed, see errors above."
 }
 
-# Rebuild indexes
-Write-Host "Rebuilding indexes ..." -ForegroundColor Green
-dotnet sitecore index rebuild
 
 Write-Host "Pushing Default rendering host configuration" -ForegroundColor Green
 dotnet sitecore ser push
@@ -113,6 +117,14 @@ if ($ClientCredentialsLogin -ne "true") {
     Write-Host "Opening site..." -ForegroundColor Green
     
     Start-Process https://xmcloudcm.localhost/sitecore/
+    Start-Process https://www.oneok.localhost/
+}
+
+
+if ($rebuild) {
+  # Rebuild indexes
+  Write-Host "Rebuilding indexes ..." -ForegroundColor Green
+  dotnet sitecore index rebuild
 }
 
 Write-Host ""
