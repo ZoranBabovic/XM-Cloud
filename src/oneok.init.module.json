@@ -1,0 +1,85 @@
+{
+    "$schema": "../.sitecore/schemas/ModuleFile.schema.json",
+    "namespace": "oneok.init",
+    "items": {
+        "includes": [
+          {
+            "name": "Master/system/Settings/Services/Rendering Hosts",
+            "path": "/sitecore/system/Settings/Services/Rendering Hosts/ONEOK",
+            "scope": "singleItem"
+          },
+          {
+              "name": "Master/content",
+              "path": "/sitecore/content/Sites",
+              "scope": "singleItem"
+          },
+          {
+              "name": "Master/sitecore/content/Sites",
+              "path": "/sitecore/content/Sites/ONEOK",
+              "scope": "itemAndDescendants",
+              "allowedPushOperations": "createUpdateAndDelete",
+              "rules": [
+                  {
+                      "path": "/Home",
+                      "scope": "singleItem",
+                      "allowedPushOperations": "createOnly"
+                  },
+                  {
+                      "path": "/Media",
+                      "scope": "singleItem",
+                      "allowedPushOperations": "createOnly"
+                  },
+                  {
+                      "path": "/Data",
+                      "scope": "singleItem",
+                      "allowedPushOperations": "createOnly"
+                  },
+                  {
+                      "path": "/Dictionary",
+                      "scope": "singleItem",
+                      "allowedPushOperations": "createOnly"
+                  },
+                  {
+                      "path": "/Dictionary",
+                      "scope": "singleItem",
+                      "allowedPushOperations": "createOnly"
+                  },
+                  {
+                      "path": "/Presentation",
+                      "scope": "ignored"
+                  },
+                  {
+                      "path": "/Settings",
+                      "scope": "ignored"
+                  }
+              ]
+          },
+          {
+              "name": "Master/sitecore/content/Sites/ONEOK/P",
+              "path": "/sitecore/content/Sites/ONEOK/Presentation",
+              "scope": "itemAndDescendants",
+              "allowedPushOperations": "createUpdateAndDelete",
+              "rules": [
+                {
+                  "path": "/Page Designs",
+                  "scope": "itemAndDescendants",
+                  "allowedPushOperations": "createOnly"
+                },
+                {
+                  "path": "/Partial Designs",
+                  "scope": "itemAndDescendants",
+                  "allowedPushOperations": "createOnly"
+                }
+              ]
+          },
+          {
+              "name": "Master/sitecore/content/Sites/ONEOK/S",
+              "path": "/sitecore/content/Sites/ONEOK/Settings",
+              "scope": "itemAndDescendants",
+              "allowedPushOperations": "createUpdateAndDelete",
+              "rules": [
+              ]
+          }
+        ]
+    }
+}
