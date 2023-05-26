@@ -4,17 +4,17 @@
     "items": {
         "includes": [
           {
-            "name": "Master/system/Settings/Services/Rendering Hosts",
+            "name": "oneok.init/a",
             "path": "/sitecore/system/Settings/Services/Rendering Hosts/ONEOK",
             "scope": "singleItem"
           },
           {
-              "name": "Master/content",
+              "name": "oneok.init/b",
               "path": "/sitecore/content/Sites",
               "scope": "singleItem"
           },
           {
-              "name": "Master/sitecore/content/Sites",
+              "name": "oneok.init/c",
               "path": "/sitecore/content/Sites/ONEOK",
               "scope": "itemAndDescendants",
               "allowedPushOperations": "createUpdateAndDelete",
@@ -55,7 +55,7 @@
               ]
           },
           {
-              "name": "Master/sitecore/content/Sites/ONEOK/P",
+              "name": "oneok.init/d",
               "path": "/sitecore/content/Sites/ONEOK/Presentation",
               "scope": "itemAndDescendants",
               "allowedPushOperations": "createUpdateAndDelete",
@@ -73,7 +73,7 @@
               ]
           },
           {
-              "name": "Master/sitecore/content/Sites/ONEOK/S",
+              "name": "oneok.init/e",
               "path": "/sitecore/content/Sites/ONEOK/Settings",
               "scope": "itemAndDescendants",
               "allowedPushOperations": "createUpdateAndDelete",
