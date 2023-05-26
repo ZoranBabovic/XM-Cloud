@@ -7,8 +7,8 @@ param (
 
 $ErrorActionPreference = "Stop"
 
-$XmCloudDeployApi = (Get-Content "$PSScriptRoot\.sitecore\user.json" | ConvertFrom-Json).endpoints.xmCloud.host
-$XmCloudDeployAccessToken = (Get-Content "$PSScriptRoot\.sitecore\user.json" | ConvertFrom-Json).endpoints.xmCloud.accessToken
+$XmCloudDeployApi = (Get-Content "$PSScriptRoot\..\..\.sitecore\user.json" | ConvertFrom-Json).endpoints.xmCloud.host
+$XmCloudDeployAccessToken = (Get-Content "$PSScriptRoot\..\..\.sitecore\user.json" | ConvertFrom-Json).endpoints.xmCloud.accessToken
 
 $Headers = @{"Authorization" = "Bearer $XmCloudDeployAccessToken" }
 $URL = @(
