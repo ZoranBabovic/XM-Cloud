@@ -1,0 +1,13 @@
+{
+    "$schema": "../.sitecore/schemas/ModuleFile.schema.json",
+    "namespace": "oneok.init.template",
+    "items": {
+        "includes": [
+          {
+              "name": "oneok.init.template/a",
+              "path": "/sitecore/templates/Project/Sites",
+              "scope": "itemAndDescendants"
+          }
+        ]
+    }
+}

@@ -1,6 +1,7 @@
 {
     "$schema": "../.sitecore/schemas/ModuleFile.schema.json",
     "namespace": "oneok.init",
+    "references": [ "oneok.init.template" ],
     "items": {
         "includes": [
           {
@@ -79,13 +80,7 @@
               "allowedPushOperations": "createUpdateAndDelete",
               "rules": [
               ]
-          },
-          {
-              "name": "oneok.init/f",
-              "path": "/sitecore/templates/Project/Sites",
-              "scope": "itemAndDescendants"
           }
-          
         ]
     }
 }
