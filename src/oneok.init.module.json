@@ -79,7 +79,13 @@
               "allowedPushOperations": "createUpdateAndDelete",
               "rules": [
               ]
+          },
+          {
+              "name": "oneok.init/f",
+              "path": "/sitecore/templates/Project/Sites",
+              "scope": "itemAndDescendants"
           }
+          
         ]
     }
 }
