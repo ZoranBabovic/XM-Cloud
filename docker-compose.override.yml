@@ -11,6 +11,7 @@ services:
     scale: 0
 
   rendering:
+    container_name: oneok_xmcloud_rendering_oneok_main
     image: ${REGISTRY}${COMPOSE_PROJECT_NAME}-rendering:${VERSION:-latest}
     build:
       context: ./docker/build/rendering
@@ -18,7 +19,7 @@ services:
       args:
         PARENT_IMAGE: ${REGISTRY}${COMPOSE_PROJECT_NAME}-nodejs:${VERSION:-latest}
     volumes:
-      - .\src\sxastarter:C:\app
+      - .\src\rendering-oneok-main:C:\app
     environment:
       SITECORE_API_HOST: "http://cm"
       NEXTJS_DIST_DIR: ".next-container"
@@ -37,6 +38,7 @@ services:
 
   # Mount the Traefik configuration and certs.
   traefik:
+    container_name: oneok_xmcloud_traefik
     volumes:
       - ./docker/traefik:C:/etc/traefik
     depends_on:
@@ -45,6 +47,7 @@ services:
   # Mount our SQL data folder and use our custom image with the Headless Services (JSS)
   # module data added. See Dockerfile for details.
   mssql:
+    container_name: oneok_xmcloud_mssql
     volumes:
       - type: bind
         source: .\docker\data\sql
@@ -53,6 +56,7 @@ services:
   # Mount our Solr data folder and use our retagged Solr image.
   # Some modules (like SXA) also require additions to the Solr image.
   solr:
+    container_name: oneok_xmcloud_solr
     volumes:
       - type: bind
         source: .\docker\data\solr
@@ -62,6 +66,7 @@ services:
   # Folders are mounted below for code deployment and log output. See Dockerfile for details.
   # Configure for a mounted license file instead of using SITECORE_LICENSE.
   cm:
+    container_name: oneok_xmcloud_cm
     image: ${REGISTRY}${COMPOSE_PROJECT_NAME}-xmcloud-cm:${VERSION:-latest}
     build:
       context: ./docker/build/cm
@@ -84,3 +89,7 @@ services:
       SITECORE_DEVELOPMENT_PATCHES: DevEnvOn,CustomErrorsOff,DebugOn,DiagnosticsOff,InitMessagesOff
       Sitecore_AppSettings_exmEnabled:define: "no" # remove to turn on EXM
     entrypoint: powershell -Command "& C:/tools/entrypoints/iis/Development.ps1"
+  mssql-init:
+    container_name: oneok_xmcloud_mssql_init
+  solr-init:
+    container_name: oneok_xmcloud_solr_init
