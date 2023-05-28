@@ -11,9 +11,10 @@ Param (
     $skipMSBuild = $false
 )
 
+Write-Host "Stopping IIS ..." 
+iisreset /stop
+
 if ($clear) {
-	Write-Host "Stopping IIS ..." 
-	iisreset /stop
 	Write-Host "Bringing current containers down ..." 
 	.\down.ps1 -f
 }
