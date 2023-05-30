@@ -11,8 +11,8 @@
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>XmCloudSXAStarter</RootNamespace>
-    <AssemblyName>XmCloudSXAStarter</AssemblyName>
+    <RootNamespace>Oneok.Project.Main</RootNamespace>
+    <AssemblyName>Oneok.Project.Main</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
@@ -65,7 +65,7 @@
     <PackageReference Include="Sitecore.Assemblies.SitecoreHeadlessServicesServer" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Config\Include\zzz\ZZZ.config" />
+    <Content Include="App_Config\Include\Project\zMain.config" />
     <Content Include="sitecore\shell\Applications\Content Manager\Content Editor.js" />
     <Content Include="App_Data\xdts\web.config.xdt" />
     <None Include="Platform.wpp.targets" />
@@ -99,4 +99,7 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
+  <Target Name="ExecPSPostBuild" AfterTargets="Build">
+    <Exec Command="powershell -ExecutionPolicy ByPass -file &quot;.\deployment.ps1&quot; -solutionDir &quot;$(SolutionDir)\&quot; -packageTmp &quot;.\obj\$(ConfigurationName)\Package\PackageTmp\\&quot; -binSource &quot;.\bin\\&quot; -deploymentZipLocation &quot;$(DesktopBuildPackageLocation)\\&quot; -configuration &quot;$(Configuration)&quot;" IgnoreExitCode="false" />
+  </Target>
 </Project>

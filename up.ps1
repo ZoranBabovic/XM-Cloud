@@ -2,8 +2,22 @@
 Param (
     # allow execution without sitecore re-index
     [switch]
-    $rebuild = $false
+    $reindex = $false,
+	
+	  [switch]
+    $clear = $false,
+
+    [switch]
+    $skipMSBuild = $false
 )
+
+Write-Host "Stopping IIS ..." 
+iisreset /stop
+
+if ($clear) {
+	Write-Host "Bringing current containers down ..." 
+	.\down.ps1 -f
+}
 
 $ErrorActionPreference = "Stop";
 
@@ -45,6 +59,29 @@ if (-not $envCheck) {
 
 Write-Host "Keeping XM Cloud base image up to date" -ForegroundColor Green
 docker pull "$($sitecoreDockerRegistry)sitecore-xmcloud-cm:$($sitecoreVersion)"
+
+# ms build in the platform
+# Check if Invoke-MsBuild module is installed
+if (-not(Get-Module -ListAvailable -Name Invoke-MsBuild)) {
+  Write-Host "Installing MSBuild Module..." -ForegroundColor Cyan
+  Install-Module -Name Invoke-MsBuild
+} 
+
+#init deployment folders
+Get-ChildItem ./docker/deploy/platform/ -Exclude .gitkeep | Remove-Item -Force -Recurse
+
+#Build solution
+Write-Host "Building ONEOK.sln ..." -ForegroundColor Cyan
+$buildResult =  Invoke-MsBuild  -Path (Resolve-Path .\ONEOK.sln) -Params "-t:build -restore -p:RestorePackagesConfig=True -p:ConfigurationName=Debug -p:DeployOnBuild=True"
+
+if ($buildResult.BuildSucceeded -eq $true)
+{
+  Write-Output ("Build completed successfully in {0:N1} seconds." -f $buildResult.BuildDuration.TotalSeconds)
+}
+elseif ($buildResult.BuildSucceeded -eq $false)
+{
+  Write-Output ("Build failed after {0:N1} seconds. Check the build log file '$($buildResult.BuildLogFilePath)' for errors." -f $buildResult.BuildDuration.TotalSeconds)
+}
 
 # Build all containers in the Sitecore instance, forcing a pull of latest base containers
 Write-Host "Building containers..." -ForegroundColor Green
@@ -121,7 +158,7 @@ if ($ClientCredentialsLogin -ne "true") {
 }
 
 
-if ($rebuild) {
+if ($reindex) {
   # Rebuild indexes
   Write-Host "Rebuilding indexes ..." -ForegroundColor Green
   dotnet sitecore index rebuild
