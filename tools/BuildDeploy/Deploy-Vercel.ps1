@@ -3,7 +3,7 @@ $vercelProjectName = ""
 $vercelToken = ""
 
 # Set up the path to the Next.js project subfolder
-$nextjsSubfolderPath = "../src/sxastarter"
+$nextjsSubfolderPath = "../src/rendering-oneok-main"
 $currentDir = Get-Location
 # Check if the Vercel CLI is installed
 if (-not (Get-Command vercel -ErrorAction SilentlyContinue)) {

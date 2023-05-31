@@ -19,6 +19,11 @@ Param (
 
 $ErrorActionPreference = "Stop";
 
+if (!(Test-Path ".\.env")) {
+  Write-Host "Creating .env from .env.example." -ForegroundColor Green
+  Copy-Item ".\.env.example" ".\.env"
+}
+
 if ($InitEnv) {
     if (-not $LicenseXmlPath.EndsWith("license.xml")) {
         Write-Error "Sitecore license file must be named 'license.xml'."
